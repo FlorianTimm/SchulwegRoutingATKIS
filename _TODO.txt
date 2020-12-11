@@ -1,0 +1,4 @@
+- Sackgassen abgleichen
+- DatenImport in FME begrenzen
+- Absprechen, ob ATKIS oder ALKIS
+- Sperrgebiete festlegen (Airbus, Flughafen)
