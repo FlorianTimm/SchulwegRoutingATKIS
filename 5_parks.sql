@@ -32,7 +32,7 @@ from sdp.sie02_f where objart = '41008' and nam in ('Niendorfer Gehege', 'Hagenb
 insert into schulweg_neu.kleingaerten_friedhoefe
 select nam, fkt, (st_dump(st_union(geom))).geom
 from sdp.alkis_nutzung_flaechen
-where (bezeich = 'AX_IndustrieUndGewerbeflaeche' and "bezfkt" not in ('Handel und Dienstleistung','Handel''Ausstellung, Messe')) or bezeich = 'AX_Flugverkehr'
+where (bezeich = 'AX_IndustrieUndGewerbeflaeche' and "bezfkt" not in ('Handel und Dienstleistung','Handel','Ausstellung, Messe')) or bezeich = 'AX_Flugverkehr'
 group by nam, fkt;
 
 insert into  schulweg_neu.kleingaerten_friedhoefe (geom)
@@ -71,7 +71,7 @@ drop table if exists tmp_part;
 update schulweg_neu.routing_aktuell set gewicht = 999 
 from tmp_kleingaerten k where st_within(routing_aktuell.the_geom, st_buffer(k.geom,0.1));
 
--- Wegenamen 
+-- Wegenamen aus Parknamen
 update schulweg_neu.routing_aktuell 
 set nam = concat('Weg im ', park.nam)
 from (select nam, geom from schulweg_neu.parks where nam is not null and nam != '') park where

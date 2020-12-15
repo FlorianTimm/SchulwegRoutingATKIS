@@ -37,6 +37,7 @@ CREATE INDEX routing_aktuell_the_geom
 --truncate schulweg_neu.routing_aktuell;
 
 -- Straßen aus ver01_l
+-- ohne 1301: Autobahnen
 insert into schulweg_neu.routing_aktuell (objid, objart, objart_txt, fkt, nam, bdi, wdm, date, the_geom)
 select objid, objart::integer, objart_txt, NULLIF(fkt,'')::integer, nam, NULLIF(bdi,'')::integer, wdm, to_timestamp(beginn,'YYYY-MM-DDTHH:MI:SSZ') date, (st_dump(geom)).geom from sdp.ver01_l where objart in ('42003','42005') and wdm != '1301' and st_isvalid(geom);
 

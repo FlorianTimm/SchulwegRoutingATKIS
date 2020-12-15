@@ -14,7 +14,7 @@ plaetze2 as
 (select nam, unnest(st_clusterwithin(geom, 0.1)) geom 
  from plaetze1 group by nam) b)
  
-select distinct on (j.id) p.objid, j.nam, p.fkt, p.geom from 
+select distinct on (j.id) p.objid, j.nam, p.fkt, j.geom from 
 plaetze2 j, plaetze1 p where j.nam = p.nam and st_within(p.geom, j.geom) order by j.id, st_area(p.geom) desc;
 
 -- update bisherige Plätze
